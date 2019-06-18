@@ -56,10 +56,16 @@ bool DriverService::Uninsall() {
 
 bool DriverService::Start() {
     last_hresult_ = ServiceInstall::StartService(DrvName().c_str());
+    if (SUCCEEDED(last_hresult_)) {
+        state_ = DRV_RUNING;
+    }
     return SUCCEEDED(last_hresult_);
 }
 
 bool DriverService::Stop() {
     last_hresult_ = ServiceInstall::StopService(DrvName().c_str());
+    if (SUCCEEDED(last_hresult_)) {
+        state_ = DRV_STOPED;
+    }
     return SUCCEEDED(last_hresult_);
 }
